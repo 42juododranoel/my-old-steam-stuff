@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  proxy:
+    build: ./proxy/
+    volumes:
+      - ${DIRECTORY}/proxy/application:/application
+      - ${ROOT}/flask_rest/flask_rest:/application/flask_rest
+    ports:
+        - 4200:5000
+    command: python3 manage.py run --log-level debug
+
+  # account:
+  #   build: ./account/
+  #   volumes:
+  #     - ${DIRECTORY}/account/application:/application
+  #     - ${ROOT}/steamapi/steamapi:/application/steamapi
+  #     - ${ROOT}/flask_rest/flask_rest:/application/flask_rest
+  #   ports:
+  #     - 4201:5000
+  #   command: sleep 1d # python3 manage.py run
+
+  # screen:
+  #   build: ./screen/
+  #   volumes:
+  #     - ${DIRECTORY}/screen/application:/application
+  #     - ${ROOT}/steamapi/steamapi:/application/steamapi
+  #     - ${ROOT}/flask_rest/flask_rest:/application/flask_rest
+  #   ports:
+  #     - 4202:5000
+  #   command: python3 manage.py run
+
+  # analyzer:
+  #   build: ./analyzer/
+  #   volumes:
+  #     - ${DIRECTORY}/analyzer/application:/application
+  #     - ${ROOT}/steamapi/steamapi:/application/steamapi
+  #     - ${ROOT}/flask_rest/flask_rest:/application/flask_rest
+  #   ports:
+  #     - 4203:5000
+
+  postgres:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  redis:
+    image: redis:4.0.10
+
+  rabbitmq:
+    image: rabbitmq:3.7.7
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest

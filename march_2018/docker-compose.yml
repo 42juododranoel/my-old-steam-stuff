@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  database:
+    build: ./database/
+    ports:
+      - '5432:5432'
+
+  application:
+    build: ./application/
+    command: sleep 1d
+    volumes:
+      - ${DIRECTORY}/hakurei/application:/project/application

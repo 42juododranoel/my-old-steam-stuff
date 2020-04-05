@@ -1,0 +1,11 @@
+flask
+flask-classy
+flask-sqlalchemy
+
+pandas==0.22.0
+scipy==1.0.0
+matplotlib==2.1.2
+peakutils==1.1.1
+
+steam
+requests
